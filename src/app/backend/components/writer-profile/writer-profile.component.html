@@ -1,0 +1,92 @@
+<!-- Page Container -->
+<div class="profile-container">
+    <app-loader *ngIf="loading"></app-loader>
+    <div *ngIf="data && !loading" class="header">
+        <mat-icon (click)="closeModal()" class="close-modal">closeDialog</mat-icon>
+    </div>
+    <div *ngIf="!loading && user" class="w3-content w3-margin-top" style="max-width:1400px;">
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+
+            <!-- Left Column -->
+            <div class="w3-third" style="margin-top: 40px;">
+
+                <div class="w3-white w3-text-grey w3-card-4" style="padding: 10px;">
+                    <div class="w3-display-container">
+                        <img *ngIf="user.profilePic" src="/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar">
+                        <div class="w3-display-bottomleft w3-container w3-text-black">
+                            <h2>{{ user.name }}</h2>
+                        </div>
+                    </div>
+                    <div class="w3-container">
+                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ user.type }}</p>
+                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{user.country | country }}</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{user.email}}</p>
+                        <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{user.phone}}</p>
+                        <hr>
+
+                        <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Completed Orders</b></p>
+                        <div *ngIf="user.completedOrders && user.completedOrders.length">
+                            <div *ngFor="let order of user.completedOrders">
+                                <p>{{order.discipline}}</p>
+                                <div class="w3-light-grey w3-round-xlarge w3-small">
+                                    <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:{{ ((order.count / totalCount) * 100).toFixed(2) }}%"> {{ ((order.count / totalCount) * 100).toFixed(2) }} %</div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <p class="w3-large w3-text-theme"><b><mat-icon>create</mat-icon>Writing Styles</b></p>
+                        <div *ngIf="user.writingStyles && user.writingStyles.length">
+                            <div *ngFor="let style of user.writingStyles">
+                                <p>{{style}}</p>
+                                <div class="w3-light-grey w3-round-xlarge">
+                                    <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div><br>
+
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-twothird" style="margin-top: 40px;">
+
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Recent Orders Completed</h2>
+                    <div *ngIf="papers.length">
+                        <div class="w3-container" *ngFor="let paper of papers">
+                            <h5 class="w3-opacity"><b>{{paper.topic}}</b></h5>
+                            <p [innerHTML]="paper.instructions.slice(0, 200)"></p>
+                            <h6 class="w3-text-teal"> <span class="w3-tag w3-teal w3-round" style="cursor: pointer;" (click)="viewPaper(paper)">Read More</span></h6>
+                            <hr>
+                        </div>
+                        <h6 class="w3-text-teal"> <span class="w3-tag w3-teal w3-round" style="cursor: pointer;" routerLink="/dashboard/my-orders">View All Orders By this Writer</span></h6>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+                    <div *ngIf="user.education && user.education.length">
+                        <div class="w3-container" *ngFor="let education of user.education">
+                            <h5 class="w3-opacity"><b>{{education.school}}</b></h5>
+                            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{education.year}}</h6>
+                            <p>{{ education.certificate }}</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+
+        <!-- End Page Container -->
+    </div>
+</div>

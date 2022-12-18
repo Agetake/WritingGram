@@ -1,0 +1,94 @@
+<!-- <div class="wrapper" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+    <div class="modal-head">
+        <div class="title-div">
+            <strong *ngIf="data"> Upload {{ data.type | titlecase  }}s </strong>
+        </div>
+        <div class="close-modal-div">
+            <button class="closeModal" (click)="closeDialog()" mat-dialog-close mat-mini-fab>
+          <mat-icon>close</mat-icon>
+        </button>
+        </div>
+    </div>
+    <section class="file-upload-zone">
+        <div class="dropZone">
+            <div class="selectedFiles" *ngIf="uploadedFiles && uploadedFiles.length > 0">
+                <mat-list id="uploaded-video-list">
+                    <mat-list-item id="uploaded-video-item" *ngFor="let file of uploadedFiles">
+                        <p id="uploaded-video-title"> {{file.file.name}}</p>
+                        <mat-progress-bar *ngIf="uploadRes && uploadRes.id === file.id && !file.uploaded" mode="determinate" value="{{uploadRes.percent}}"></mat-progress-bar>
+                        <span class="list-spacer"></span>
+                        <button *ngIf="!file.valid" matTooltip="Unsupported File Type" class="report-problem" mat-mini-fab (click)="removeFile(file.id)">
+                        <mat-icon>report_problem</mat-icon>
+                      </button>
+                        <button *ngIf="!file.uploaded" class="close" mat-mini-fab (click)="removeFile(file.id)">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                        <button *ngIf="file.uploaded" class="close" mat-mini-fab>
+                        <mat-icon>check</mat-icon>
+                      </button>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="file" *ngIf="!uploadedFiles || uploadedFiles.length === 0">
+                <label class="file-upload-label">
+        <input class="file-input" type="file" name="file" id="file" (change)="uploadFileEvt($event)" multiple hidden>
+        <span class="file-actions">
+          <span class="file-icon">
+            <mat-icon class="upload">cloud_upload</mat-icon>
+          </span>
+        </span>
+      </label>
+            </div>
+        </div>
+        <div class="upload-actions">
+            <button *ngIf="uploadedFiles && uploadedFiles.length > 0" class="cancel-btn" (click)="cancelSelection()">
+            Cancel
+          </button>
+            <button [ngClass]="!canUpload ? 'disabled' : ''" class="confirm-btn" type="button" (click)="uploadFiles()">Confirm Upload</button>
+        </div>
+    </section>
+</div> -->
+
+<div class="header">
+    <mat-icon (click)="closeModal()" class="close-modal">closeDialog</mat-icon>
+</div>
+<div class="container">
+    <div class="card">
+        <h3 *ngIf="data && data.type"> <span *ngIf="!uploadedFiles || uploadedFiles.length === 0"> Upload {{data.type | titlecase}} </span> <span *ngIf="uploadedFiles && uploadedFiles.length > 0"> Uploaded {{data.type | titlecase}} </span> </h3>
+        <div class="drop_box" *ngIf="!uploadedFiles || uploadedFiles.length === 0">
+            <header>
+                <h4>Select File here</h4>
+            </header>
+            <p *ngIf="supportedExts.length">Files Supported: <span *ngFor="let ext of supportedExts"> {{ext}}, </span></p>
+            <input type="file" #fileInput hidden accept=".doc,.docx,.pdf" id="fileID" (change)="uploadFileEvt($event)" multiple style="display:none;">
+            <button class="btn" (click)="openUploadWidget()">Choose File</button>
+        </div>
+
+        <div class="drop_box" *ngIf="uploadedFiles && uploadedFiles.length > 0">
+            <div class="files-list" *ngFor="let file of uploadedFiles">
+                <div class="files">
+                    <h4 id="uploaded-video-title"> {{file.file.name}}</h4>
+                    <mat-progress-bar *ngIf="uploadRes && uploadRes.id === file.id && !file.uploaded" mode="determinate" value="{{uploadRes.percent}}"></mat-progress-bar>
+                    <span class="list-spacer"></span>
+                </div>
+                <div class="file-actions">
+                    <!-- <button *ngIf="!file.valid" matTooltip="Unsupported File Type" class="report-problem" mat-mini-fab (click)="removeFile(file.id)">
+                    <mat-icon>report_problem</mat-icon>
+                  </button> -->
+                    <button style="margin: 2px;" *ngIf="!file.uploaded" class="close" mat-mini-fab (click)="removeFile(file.id)">
+                              <mat-icon>close</mat-icon>
+                            </button>
+                    <button style="margin: 2px;" *ngIf="file.uploaded" class="close" mat-mini-fab>
+                              <mat-icon>check</mat-icon>
+                            </button>
+                </div>
+            </div>
+        </div>
+        <div style="margin: 20px;" *ngIf="uploadedFiles && uploadedFiles.length > 0">
+            <button *ngIf="uploadedFiles && uploadedFiles.length > 0" class="cancel-btn" (click)="cancelSelection()">
+              Cancel
+            </button>
+            <button class="confirm-btn" [disabled]="!canUpload" (click)="uploadFiles()">Upload</button>
+        </div>
+    </div>
+</div>

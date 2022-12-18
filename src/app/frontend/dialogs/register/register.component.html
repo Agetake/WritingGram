@@ -1,0 +1,113 @@
+<app-loader *ngIf="loading"></app-loader>
+<div class="container" *ngIf="!loading">
+    <span class="close" (click)="closeDialog()">&times;</span>
+    <div>
+        <h1> Register as {{ registrationType }}</h1>
+    </div><br>
+    <div class="form-container" *ngIf="registrationType">
+        <form (ngSubmit)="registerUser()" [formGroup]="registrationForm">
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Your Name" formControlName="name">
+            </mat-form-field> <br>
+            <div *ngIf="registrationForm.get('name')!.invalid &&
+    registrationForm.get('name')!.errors &&
+    (registrationForm.get('name')!.dirty || registrationForm.get('name')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('name')!.hasError('required')">
+      This field is required.
+    </small>
+            </div>
+
+            <mat-form-field class="form-field">
+                <input type="email" matInput placeholder="Email" formControlName="email">
+            </mat-form-field> <br>
+            <div *ngIf="registrationForm.get('email')!.invalid &&
+  registrationForm.get('email')!.errors &&
+  (registrationForm.get('email')!.dirty || registrationForm.get('email')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('email')!.hasError('required')">
+    This field is required.
+  </small>
+            </div>
+
+            <mat-form-field class="form-field">
+                <input type="username" matInput placeholder="Username" formControlName="username">
+            </mat-form-field> <br>
+            <div *ngIf="registrationForm.get('username')!.invalid && registrationForm.get('username')!.errors && (registrationForm.get('username')!.dirty || registrationForm.get('username')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('username')!.hasError('required')">
+                  This field is required.
+                </small>
+            </div>
+
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Phone No." formControlName="phone">
+            </mat-form-field> <br>
+            <div *ngIf="registrationForm.get('phone')!.invalid &&
+registrationForm.get('phone')!.errors &&
+(registrationForm.get('phone')!.dirty || registrationForm.get('phone')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('phone')!.hasError('required')">
+  This field is required.
+</small> <br>
+                <small class="text-danger" *ngIf="registrationForm.get('phone')!.hasError('phoneValid')">
+  Phone number should have at least 10 digits
+</small>
+            </div>
+
+            <mat-form-field class="form-field">
+                <mat-select formControlName="country" placeholder="Select Country">
+                    <input type="text" [formControl]="registrationFormCountrySearch" (keyup)="onCountryKey()" placeholder="Search for Country">
+                    <mat-option *ngFor="let country of filteredCountries" [value]="country.code">{{ country.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> <br>
+            <div *ngIf="registrationForm.get('country')!.invalid &&
+  registrationForm.get('country')!.errors &&
+  (registrationForm.get('country')!.dirty || registrationForm.get('country')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('country')!.hasError('required')">
+    This field is required.
+  </small>
+            </div>
+
+            <mat-form-field *ngIf="country === 'KE'" class="form-field">
+                <mat-select formControlName="county" placeholder="Select County">
+                    <input type="text" [formControl]="registrationFormCountySearch" (keyup)="onCountyKey()" placeholder="Search for County">
+                    <mat-option *ngFor="let county of filteredCounties" [value]="county.code">{{ county.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> <br>
+            <div *ngIf="(registrationForm.get('county')!.dirty || registrationForm.get('county')!.touched)">
+
+                <small class="text-danger" *ngIf="countyInvalidError">
+                County is required
+              </small>
+
+            </div>
+
+            <mat-form-field class="form-field">
+                <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field> <br>
+            <div *ngIf="registrationForm.get('password')!.invalid &&
+registrationForm.get('password')!.errors &&
+(registrationForm.get('password')!.dirty || registrationForm.get('password')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('password')!.hasError">
+  Password is required and must be a minimum of 8 characters.
+</small> <br>
+                <small class="text-danger" *ngIf="registrationForm.get('password')!.hasError('passwordStrength')">
+  Your password must have lower case, upper case and numeric characters.
+</small>
+            </div>
+
+            <mat-form-field class="form-field">
+                <input type="password" matInput placeholder="Confirm Password" formControlName="cPassword">
+            </mat-form-field> <br>
+            <div *ngIf="(registrationForm.get('cPassword')!.dirty || registrationForm.get('cPassword')!.touched)">
+                <small class="text-danger" *ngIf="registrationForm.get('cPassword')!.hasError('required')">
+Confirm password is required
+</small> <br>
+                <small class="text-danger" *ngIf="passwordMatchError">
+  Passwords do not match
+</small>
+            </div>
+
+            <input type="submit" [disabled]="!registrationForm.valid || loading" value="next">
+        </form>
+    </div>
+</div>

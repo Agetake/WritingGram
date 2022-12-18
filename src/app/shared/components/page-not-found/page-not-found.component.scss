@@ -1,0 +1,68 @@
+$blue: #002164;
+$green: #23A036;
+* {
+    text-align: center !important;
+}
+
+section {
+    background-color: $blue;
+    display: flex;
+    margin-top: -20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 50px);
+    .message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        mat-icon {
+            transform: scale(2);
+            color: red;
+            margin: auto;
+        }
+        h1 {
+            padding-top: 30px;
+            margin: auto;
+            font-weight: bolder;
+            color: $green;
+        }
+        h4 {
+            color: $green;
+        }
+        p {
+            color: white;
+        }
+        .buttons {
+            max-width: 760px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            gap: 10px;
+            width: 100%;
+            button {
+                width: 100%;
+                padding-top: 5px !important;
+                padding-bottom: 5px !important;
+                border: 1px solid white;
+                background-color: $green;
+                border-radius: 12px;
+                color: white;
+                &:hover {
+                    background-color: #002164;
+                    border: 1px solid $green;
+                    border-radius: 12px;
+                    color: white;
+                }
+            }
+        }
+    }
+    @media all and (max-width: 1024px) {
+        .message {}
+    }
+}

@@ -1,0 +1,41 @@
+<app-loader *ngIf="loading"></app-loader>
+<div class="container" *ngIf="!loading">
+    <span class="close" (click)="closeDialog()">&times;</span>
+    <h2>Login Form</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+        <div class="container">
+            <label for="email"><b>Email</b></label>
+            <input type="email" formControlName="email" placeholder="Enter Email" name="email" required>
+            <br>
+            <div *ngIf="form.get('email')!.invalid &&
+        form.get('email')!.errors &&
+        (form.get('email')!.dirty || form.get('email')!.touched)">
+                <small class="text-danger" *ngIf="form.get('email')!.hasError('required')">
+          This field is required.
+        </small>
+            </div>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" formControlName="password" placeholder="Enter Password" name="password" required>
+            <br>
+            <div *ngIf="form.get('password')!.invalid &&
+        form.get('password')!.errors &&
+        (form.get('password')!.dirty || form.get('password')!.touched)">
+                <small class="text-danger" *ngIf="form.get('password')!.hasError('required')">
+          This field is required.
+        </small>
+            </div>
+
+            <input type="submit" [disabled]="!form.valid || loading" />
+            <label>
+      <!-- <input type="checkbox" checked="checked" name="remember"> Remember me -->
+    </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <span class="signupbtn"><a (click)="signUp()" style="cursor: pointer;">Sign Up</a> </span>
+            <span class="psw">Forgot <a (click)="forgotPassword()" style="cursor: pointer;">password?</a></span>
+        </div>
+    </form>
+</div>

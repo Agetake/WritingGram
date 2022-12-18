@@ -1,0 +1,15 @@
+<span class="close" (click)="closeDialog()">&times;</span>
+<mat-form-field>
+    <div>
+        <mat-toolbar>
+            <!-- Display files names -->
+            <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+            <!-- Browse Button -->
+            <!-- <button mat-flat-button color="primary">Browse File</button> -->
+        </mat-toolbar>
+        <!-- Fetch selected filed on change -->
+        <!-- <input type="file"  (change)="uploadFileEvt($event)" name="uploadFile" multiple="multiple" accept="image/*" /> -->
+        <input type="file" name="logo" #fileInput id="uploadFile" (change)="uploadFileEvt($event)">
+    </div>
+</mat-form-field>
+<button mat-flat-button color="primary" class="upload-button" (click)="submitFile()" [disabled]="loading">Submit</button>

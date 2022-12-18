@@ -1,0 +1,108 @@
+<!-- <div class="container">
+    <h1 *ngIf="rates.length"> All Rates</h1>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="hoursRemaining">
+                <th mat-header-cell *matHeaderCellDef> Deadline </th>
+                <td mat-cell *matCellDef="let rate" (click)="viewRate(rate)" style="cursor:pointer;"> {{rate.hoursRemaining | deadline}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="more">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let rate"> <button class="btn" (click)="viewRate(rate)"> View Rates </button> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of rates">
+        </mat-paginator>
+    </div>
+</div> -->
+
+
+<!-- <app-loader *ngIf="loading"></app-loader> -->
+<div class="showcase-form card">
+    <h2>Update Price Calculator</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="updateRate()">
+        <div class="form-control">
+            <div class="label">
+                <label for="paperType">Paper Type</label>
+            </div>
+            <div class="input">
+                <select formControlName="paperTypeCode">
+                <option disabled selected readonly>Type of Paper</option>
+                <option *ngFor="let type of paperTypes" value="{{type.code}}"> {{ type.name }} </option>
+              </select>
+            </div>
+        </div>
+        <div class="form-control">
+            <div class="label">
+                <label for="level">Level</label>
+            </div>
+            <div class="input">
+                <select formControlName="levelCode">
+                <option *ngFor="let level of levels" value="{{level.code}}"> {{ level.level }} </option>
+              </select>
+            </div>
+        </div>
+        <div class="form-control">
+            <div class="label">
+                <label for="deadline">Deadline</label>
+            </div>
+            <div class="input">
+                <select formControlName="deadline">
+                <option *ngFor="let deadline of deadlines" value="{{deadline}}"> {{ deadline | deadline }} </option>
+              </select>
+            </div>
+        </div>
+        <div class="form-control">
+            <div class="label">
+                <label for="mode">Mode</label>
+            </div>
+            <div class="input">
+                <select formControlName="mode">
+            <option value="original"> Original </option>
+            <option value="rewriting"> Rewriting </option>
+            <option value="editing"> Editing </option>
+          </select>
+            </div>
+        </div>
+        <div class="form-control">
+            <div class="label">
+                <label for="pages">Price per Page</label>
+            </div>
+            <div class="input">
+                <div class="pages">
+                    <div class="no-of-pages">
+                        <!-- <div class="counter-button">
+                            <i class="fa fa-minus" (click)="decrementPages()"></i>
+                        </div> -->
+                        <div class="pages-input">
+                            <input type="text" [min]="1" formControlName="pricePerPage" [value]="price" placeholder="Enter Price per Page" required>
+                        </div>
+                        <!-- <div class="counter-button">
+                            <i class="fa fa-plus" (click)="incrementPages()"></i>
+                        </div> -->
+                    </div>
+                    <div class="spacing">
+                        <select formControlName="spacing">
+                        <option value="double-spaced"> Double Spaced </option>
+                        <option value="single-spaced"> Single Spaced </option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <!-- <div class="price" *ngIf="this.price">
+                Price: {{ this.sharedService.currency$ | async }} {{ this.price }}
+            </div> -->
+            <div class="submit">
+                <input type="submit" value="Update Price" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+</div>

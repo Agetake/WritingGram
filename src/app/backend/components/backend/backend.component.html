@@ -1,0 +1,71 @@
+<section id="sidebar">
+    <section class="title-container">
+        <img src="speedometer.svg" width="40px" alt="logo" />
+        <h1>Writing Gram</h1>
+    </section>
+    <section class="links-container">
+        <div class="links" routerLink="/dashboard">
+            <div class="icon">
+                <i class="fas fa-house-user"></i>
+            </div>
+            <span>Dashboard</span>
+        </div>
+        <div *ngIf="isAdmin || isWriter" class="links" routerLink="/dashboard/available-orders">
+            <div class="icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <span>Available Orders</span>
+        </div>
+        <div *ngIf="isAdmin" class="links" routerLink="/dashboard/assigned-orders">
+            <div class="icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <span>Assigned Orders</span>
+        </div>
+        <div class="links" routerLink="/dashboard/my-orders">
+            <div class="icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <span>My Orders</span>
+        </div>
+        <div *ngIf="isAdmin" class="links" routerLink="/dashboard/completed-orders">
+            <div class="icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <span>Completed Orders</span>
+        </div>
+        <div class="links" routerLink="/dashboard/writer-profile">
+            <div class="icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <span>My Profile</span>
+        </div>
+        <div *ngIf="isAdmin" class="links" routerLink="/dashboard/users">
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <span>Users</span>
+        </div>
+        <div *ngIf="isAdmin" class="links" routerLink="/dashboard/rates">
+            <div class="icon">
+                <i class="fa fa-money"></i>
+            </div>
+            <span>Rates</span>
+        </div>
+        <div *ngIf="isAdmin" class="links">
+            <div class="icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <span>Messages</span>
+        </div>
+        <div *ngIf="isAdmin" class="links">
+            <div class="icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <span>Settings</span>
+        </div>
+    </section>
+</section>
+<section id="main-dashboard-content">
+    <router-outlet></router-outlet>
+</section>

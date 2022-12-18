@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  useEmulators: false,
+  REGION: 'us-central',
+  firebase: {
+    projectId: 'writing-gram',
+    appId: '1:24256737216:web:0985dcb15c7f1851056225',
+    storageBucket: 'writing-gram.appspot.com',
+    locationId: 'us-central',
+    apiKey: 'AIzaSyDkJBTl8ZYUZnwsXlCabJ9R20VJjWT7BDA',
+    authDomain: 'writing-gram.firebaseapp.com',
+    messagingSenderId: '24256737216',
+  },
 };
 
 /*

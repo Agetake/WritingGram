@@ -1,0 +1,103 @@
+.showcase-form {
+    position: relative;
+    top: 60px;
+    height: auto;
+    width: 100%;
+    padding: 40px;
+    z-index: 100;
+    justify-self: flex-end;
+    animation: slideInFromRight 1s ease-in;
+}
+
+.showcase-form .form-control {
+    margin: 30px 0;
+    display: flex;
+    .label {
+        flex: 1;
+    }
+    .input {
+        flex: 2;
+    }
+}
+
+.showcase-form input[type='text'],
+.showcase-form input[type='email'],
+.showcase-form input[type='datetime-local'],
+.showcase-form select {
+    border: 0;
+    border-bottom: 1px solid #b4becb;
+    width: 100%;
+    padding: 3px;
+    font-size: 16px;
+}
+
+.showcase-form input:focus,
+.showcase-form select:focus {
+    outline: none;
+}
+
+.showcase::before,
+.showcase::after {
+    content: '';
+    position: absolute;
+    height: 100px;
+    bottom: -70px;
+    right: 0;
+    left: 0;
+    background: #fff;
+    transform: skewY(-3deg);
+    -webkit-transform: skewY(-3deg);
+    -moz-transform: skewY(-3deg);
+    -ms-transform: skewY(-3deg);
+}
+
+.pages {
+    display: flex;
+    .showcase-form input[type='text'],
+    .showcase-form select {
+        border: 0;
+        border-bottom: 1px solid #b4becb;
+        width: 100%;
+        padding: 3px;
+        font-size: 16px;
+        text-align: center;
+        align-items: center;
+    }
+    .showcase-form input:focus,
+    .showcase-form select:focus {
+        outline: none;
+    }
+}
+
+.no-of-pages {
+    flex: 1;
+    margin: 0 2px;
+    display: flex;
+    .counter-button {
+        flex: 1;
+        margin: 0 2px;
+        cursor: pointer;
+    }
+    .pages-input {
+        flex: 1;
+        margin: 0 2px;
+    }
+}
+
+.spacing {
+    flex: 1;
+    margin: 0 2px;
+}
+
+.action {
+    display: flex;
+    margin: 0 2px;
+    .price {
+        flex: 1;
+        margin: 0 2px;
+    }
+    .submit {
+        flex: 1;
+        margin: 0 2px;
+    }
+}

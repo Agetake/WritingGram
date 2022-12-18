@@ -1,0 +1,13 @@
+<button type="button" class="btn btn-sm btn-primary mx-4 upload-button" (click)="openDialog()">{{uploadButtonName}}</button>
+
+<!-- Embed this component in the format shown below to upload videos
+remember to customize the fileType and uploadButtonName by changing the names within the single quotes  -->
+<!-- <app-file-upload-widget [fileType]="'video'" [uploadButtonName]="'Upload File'" (fileDetails)='uploadedFileDetails($event)'></app-file-upload-widget> -->
+
+<!-- On the ts side, add the following method -->
+
+<!-- fileDetails: {id: string, name: string, downloadUrl: string}[] | null = null; -->
+
+<!-- uploadedFileDetails(event: typeof this.fileDetails) {
+  this.fileDetails = event;
+} -->

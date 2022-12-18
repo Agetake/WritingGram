@@ -1,0 +1,179 @@
+<div class="order-container">
+    <div class="order-form">
+        <h2>Responsive Form</h2>
+        <p>Resize the browser window to see the effect. When the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other.</p>
+        <div class="container">
+            <form [formGroup]="orderForm" (ngSubmit)="orderPaper()">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="level">Level</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="level" formControlName="levelCode">
+                          <option selected disabled>Select Level</option>
+                          <option *ngFor="let level of levels" value="{{level.code}}"> {{ level.level }} </option>
+                      </select>
+                        <br>
+                        <div *ngIf="orderForm.get('levelCode')!.invalid && orderForm.get('levelCode')!.errors && (orderForm.get('levelCode')!.dirty || orderForm.get('levelCode')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('levelCode')!.hasError('required')">
+                            This field is required.
+                          </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="type"> Paper Type</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="type" formControlName="paperTypeCode">
+                        <option selected disabled>Select Type of Paper</option>
+                        <option *ngFor="let type of paperTypes" value="{{type.code}}"> {{ type.name }} </option>
+                        <br>
+                        <div *ngIf="orderForm.get('paperTypeCode')!.invalid && orderForm.get('paperTypeCode')!.errors && (orderForm.get('paperTypeCode')!.dirty || orderForm.get('paperTypeCode')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('paperTypeCode')!.hasError('required')">
+                              This field is required.
+                            </small>
+                        </div>
+                    </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="discipline">Discipline</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="discipline" formControlName="discipline">
+                        <option selected disabled>Select Discipline</option>
+                        <option *ngFor="let discipline of disciplines" value="{{discipline.code}}"> {{ discipline.name }} </option>
+                    </select>
+                        <br>
+                        <div *ngIf="orderForm.get('discipline')!.invalid && orderForm.get('discipline')!.errors && (orderForm.get('discipline')!.dirty || orderForm.get('discipline')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('discipline')!.hasError('required')">
+                          This field is required.
+                        </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="topic">Topic</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" formControlName="topic" placeholder="Topic..">
+                        <br>
+                        <div *ngIf="orderForm.get('topic')!.invalid && orderForm.get('topic')!.errors && (orderForm.get('topic')!.dirty || orderForm.get('topic')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('topic')!.hasError('required')">
+                              This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="instructions">Paper Instructions</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea formControlName="instructions" placeholder="Write something.." style="height:200px"></textarea>
+                        <br>
+                        <div *ngIf="orderForm.get('instructions')!.invalid && orderForm.get('instructions')!.errors && (orderForm.get('instructions')!.dirty || orderForm.get('instructions')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('instructions')!.hasError('required')">
+                              This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="format"> Paper Format</label>
+                    </div>
+                    <div class="col-75">
+                        <select formControlName="format">
+                          <option selected disabled>Select Format of Paper</option>
+                          <option *ngFor="let format of paperFormats" value="{{format}}"> {{ format }} </option>
+                        </select>
+                        <br>
+                        <div *ngIf="orderForm.get('format')!.invalid && orderForm.get('format')!.errors && (orderForm.get('format')!.dirty || orderForm.get('format')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('format')!.hasError('required')">
+                              This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="deadline"> Deadline</label>
+                    </div>
+                    <div class="col-75">
+                        <select formControlName="deadline">
+                          <option selected disabled>Select Deadline</option>
+                          <option *ngFor="let deadline of deadlines" value="{{deadline}}"> {{ deadline | deadline  }} </option>
+                        </select>
+                        <br>
+                        <div *ngIf="orderForm.get('deadline')!.invalid && orderForm.get('deadline')!.errors && (orderForm.get('deadline')!.dirty || orderForm.get('deadline')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('deadline')!.hasError('required')">
+                              This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="spacing">Spacing</label>
+                    </div>
+                    <div class="col-75">
+                        <select formControlName="spacing">
+                          <option selected disabled>Select Spacing</option>
+                          <option value="double-spaced"> Double Spaced </option>
+                          <option value="single-spaced"> Single Spaced </option>
+                      </select>
+                        <br>
+                        <div *ngIf="orderForm.get('spacing')!.invalid && orderForm.get('spacing')!.errors && (orderForm.get('spacing')!.dirty || orderForm.get('spacing')!.touched)">
+                            <small class="text-danger" *ngIf="orderForm.get('spacing')!.hasError('required')">
+                            This field is required.
+                          </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="pages">Pages</label>
+                    </div>
+                    <div class="col-75">
+                        <div class="no-of-pages">
+                            <div class="counter-button" (click)="decrementPages()">
+                                <i class="fa fa-minus"></i>
+                            </div>
+                            <div class="pages-input">
+                                <input type="text" value="{{noOfPages}}" readonly placeholder="Pages" required>
+                            </div>
+                            <div class="counter-button" (click)="incrementPages()">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="materials">Additional Materials</label>
+                    </div>
+                    <div class="col-75">
+                        <button (click)="uploadFile('paper-materials')"> Upload Files </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="submit" [disabled]="!orderForm.valid" value="Continue">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="checkout-form">
+        <div class="container">
+            <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>1</b></span></h4>
+            <p *ngIf="pricePerPage"><a> {{ noOfPages }} pages - ({{ this.sharedService.currency$ | async }} {{pricePerPage}} per page)</a> <span class="price">{{ this.sharedService.currency$ | async }} {{ price }} </span></p>
+            <hr>
+            <p>Total <span class="price" style="color:black"><b> {{ this.sharedService.currency$ | async }} {{price}} </b></span></p>
+            <input type="submit" (click)="orderPaper()" [disabled]="!orderForm.valid" value="Continue to checkout" class="btn">
+        </div>
+    </div>
+</div>

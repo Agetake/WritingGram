@@ -1,0 +1,172 @@
+<div class="header">
+    <mat-icon (click)="closeModal()" class="close-modal">closeDialog</mat-icon>
+</div>
+<div class="container">
+    <div class="left" *ngIf="paper">
+        <div class="info">
+            <div class="info-title">
+                <strong> Topic: </strong>
+            </div>
+            <div class="info-description">
+                {{ paper.topic}}
+            </div>
+            <div class="info-title">
+                <strong> Discipline: </strong>
+            </div>
+            <div class="info-description">
+                {{ getDiscipline(paper.discipline)}}
+            </div>
+            <div class="info-title">
+                <strong> Level: </strong>
+            </div>
+            <div class="info-description">
+                {{ getLevel(paper.levelCode) }}
+            </div>
+            <div class="info-title">
+                <strong> Type: </strong>
+            </div>
+            <div class="info-description">
+                {{ getPaperType(paper.paperTypeCode) }}
+            </div>
+            <div class="info-title">
+                <strong> Mode: </strong>
+            </div>
+            <div class="info-description">
+                {{ paper.mode }}
+            </div>
+            <div class="info-title">
+                <strong> Due Date: </strong>
+            </div>
+            <div class="info-description">
+                <span [ngStyle]="{'color': getUrgency(paper | dueDate | date:'medium') }"> {{ paper | dueDate | date:'medium'}} </span>
+            </div>
+        </div>
+        <h4>
+            <strong> Description </strong>
+        </h4>
+        <div *ngIf="paper" [innerHtml]="paper.instructions">
+        </div>
+    </div>
+    <div class="right" *ngIf="paper">
+        <div *ngIf="user && !user.roles.includes('customer')">
+            <p> <strong> Completion Status: </strong> </p>
+            <mat-radio-group aria-label="Select an option" [disabled]="!myOrder" [formControl]="completionStatus">
+                <mat-radio-button value="complete" style="margin: 5px;">Complete</mat-radio-button>
+                <mat-radio-button value="partial" style="margin: 5px;">Partial</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div *ngIf="paper.customer && user && paper.customer.email === user.email">
+            <p> <strong> Paper Status: </strong> </p>
+            <span *ngIf="assigned && paper && paper.completionStatus==='complete'"> Complete </span>
+            <span *ngIf="assigned && paper && paper.completionStatus==='partial'"> In Progress </span>
+            <span *ngIf="!assigned"> Assigning Process </span>
+        </div>
+        <br>
+        <div *ngIf="assigned && user && !user.roles.includes('customer')">
+            <label *ngIf="myOrder && completionStatus.value === 'partial'"> Enter No of Completed Pages </label>
+            <input *ngIf="completionStatus.value === 'partial'" type="number" [formControl]="completedPages" max="{{paper.noOfPages}}" min="1">
+            <app-file-upload-widget *ngIf="myOrder && completionStatus.value" [filePath]="'essays'" [fileType]="'essay'" [uploadButtonName]="'Upload Essay'" (fileDetails)='uploadedFileDetails($event)'></app-file-upload-widget>
+        </div>
+        <div *ngIf="this.paper && this.paper.files && user && !user.roles.includes('customer')">
+            <h4> <strong> Uploaded Files </strong> </h4>
+            <div class="files">
+                <div class="file-details">
+                    <h4 style="font-weight: 700;"> File</h4>
+                </div>
+                <div class="file-actions">
+                    <h4 style="font-weight: 700;"> Approved </h4>
+                </div>
+            </div>
+            <div *ngFor="let file of this.paper.files" class="files">
+                <div class="file-details">
+                    <a href="{{ file.downloadUrl }}" target="_blank">{{ file.name }}</a>
+                    <!-- if user has delete permission -->
+                    <i style="color: red; margin-left: 10px; cursor: pointer;" class="fa fa-trash" aria-hidden="true" (click)="deleteFileUpload(file)"></i>
+                </div>
+                <div class="file-actions">
+                    <!-- <mat-icon *ngIf="!file.approved">clear</mat-icon> -->
+                    <mat-icon *ngIf="file.approved">done</mat-icon>
+                    <button (click)="approveFile(file)" class="assign-btn" *ngIf="!file.approved">Approve</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.paper && this.paper.files && paper.customer && user && paper.customer.email === user.email && fileApproved">
+            <h4> <strong> Uploaded Files </strong> </h4>
+            <div class="files">
+                <div class="file-details">
+                    <h4 style="font-weight: 700;"> File</h4>
+                </div>
+                <div class="file-actions">
+                    <h4 style="font-weight: 700;"> Download </h4>
+                </div>
+            </div>
+            <div *ngFor="let file of this.paper.files | filterApprovedFiles" class="files">
+                <div class="file-details">
+                    <a href="{{ file.downloadUrl }}" target="_blank">{{ file.name }}</a>
+                    <!-- if user has delete permission -->
+                    <i *ngIf="isAdmin" style="color: red; margin-left: 10px; cursor: pointer;" class="fa fa-trash" aria-hidden="true" (click)="deleteFileUpload(file)"></i>
+                </div>
+                <div class="file-actions">
+                    <!-- <span> {{ file.uploadedOn | date }} </span> -->
+                    <a href="{{ file.downloadUrl }}" target="_blank">
+                        <mat-icon>download</mat-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br> <strong> <span *ngIf="!assigned && !myOrder && isAdmin"> Assign Writer </span> <span *ngIf="assigned"> Assigned To </span> </strong>
+        <span *ngIf="paper.writer && assigned" (click)="viewProfile(paper.writer)"> <a class="selected-writer"> {{paper.writer.email}} </a> </span>
+        <br>
+        <br>
+        <strong> <span *ngIf="assigned && !myOrder && isAdmin"> Re-Assign to a Different Writer </span> </strong>
+        <div class="writer" *ngIf="!myOrder && isAdmin">
+            <form>
+                <select [formControl]="writer">
+            <option value="default" disabled> Select Writer </option>
+            <option *ngFor="let writer of writers" value="{{writer.id}}"> {{ writer.name }} </option>
+        </select>
+                <br>
+                <div *ngIf="!writer.valid && (writer.dirty || writer.touched)">
+                    <small class="text-danger">
+            This field is required.
+          </small>
+                </div>
+            </form>
+        </div>
+        <span *ngIf="selectedWriter && !myOrder" (click)="viewProfile(selectedWriter)"> View <a class="selected-writer"> {{selectedWriter.name}}'s </a> Profile </span>
+        <br>
+        <button *ngIf="!myOrder && isAdmin" (click)="assignPaper()" [disabled]="!selectedWriter" class="assign-btn">
+          <span *ngIf="!assigned"> Assign </span> <span *ngIf="assigned"> Re-Assign </span>
+        </button>
+        <div *ngIf="(paper.customer && user && paper.customer.email === user.email) || isAdmin">
+            <!-- <form class="example-form">
+                <mat-form-field class="writer-comment">
+                    <mat-label>Leave a comment for the Writer</mat-label>
+                    <textarea [formControl]="comment" matInput placeholder="Ex. Change section..."></textarea>
+                </mat-form-field>
+            </form> -->
+            <!-- comment?: { comment: string; commentBy: { email: string; name: string; type: Partial
+            < 'writer' | 'customer' | 'admin'>; }; createdAt: string; } -->
+
+            <div *ngIf="paper.comment && paper.comment.length">
+                <h4> Comments: </h4>
+                <div style="background-color: #eaeaea; padding: 5px;" *ngFor="let comment of paper.comment">
+                    <h6 style="font-weight: 700;"> {{ comment.commentBy.type }} </h6>
+                    <p>{{comment.comment}}</p>
+                    <span class="time-left">{{comment.createdAt | date:'medium'}}</span>
+                </div>
+            </div>
+            <p><label for="w3review">Leave a Comment for the Writer:</label></p>
+
+            <textarea [formControl]="comment" rows="5" cols="100%"></textarea>
+            <br>
+            <input [disabled]="!comment.valid" type="submit" value="Submit" (click)="submitComment()">
+        </div>
+        <div *ngIf="paper.customer && user && paper.customer.email === user.email && paper.completionStatus === 'complete'">
+            <span> Approve writer's paper</span>
+            <button (click)="approvePaper()" class="assign-btn">
+              <span> Approve Paper</span>
+            </button>
+        </div>
+    </div>
+</div>

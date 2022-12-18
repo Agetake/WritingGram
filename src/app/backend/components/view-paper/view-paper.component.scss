@@ -1,0 +1,107 @@
+.header {
+    display: block;
+    margin: 20px 10px;
+    .close-modal {
+        float: right;
+        cursor: pointer;
+    }
+}
+
+.container {
+    display: flex;
+    margin: 20px auto;
+    width: 80vw;
+    height: 80vh;
+    overflow-y: auto;
+    justify-content: center;
+    .left {
+        flex: 1;
+        padding: 10px;
+        margin: 10px;
+        .writer {
+            margin: 10px;
+        }
+        .selected-writer {
+            cursor: pointer;
+            color: blue;
+        }
+    }
+    .right {
+        flex: 1;
+        padding: 10px;
+        margin: 10px;
+        .info {
+            display: flex;
+            flex-direction: column;
+            .info-title {
+                flex: 1;
+            }
+            .info-description {
+                flex: 2;
+            }
+        }
+        input[type=text],
+        input[type=file],
+        input[type=number],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        input[type=submit]:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+}
+
+.assign-btn {
+    background-color: blue;
+    padding: 10px 15px;
+    border-radius: 5%;
+    color: white;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.assign-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.files {
+    display: flex;
+    margin: 5px auto;
+    padding: 5px;
+    justify-content: space-around;
+}
+
+.file-details {
+    flex: 2;
+    margin: 2px;
+}
+
+.file-actions {
+    flex: 1;
+    margin: 2px;
+}

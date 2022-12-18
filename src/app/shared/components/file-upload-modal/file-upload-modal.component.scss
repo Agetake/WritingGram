@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+.container {
+    height: 50vh;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: #fcfcfc;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+    width: 95%;
+    margin: auto;
+    height: 90%;
+    overflow-y: auto;
+    background-color: #ffffff;
+    padding: 10px 30px 40px;
+}
+
+.card h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.drop_box {
+    margin: 10px 0;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 3px dotted #a3a3a3;
+    border-radius: 5px;
+}
+
+.drop_box h4 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #2e2e2e;
+}
+
+.drop_box p {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #a3a3a3;
+}
+
+.btn {
+    text-decoration: none;
+    background-color: #005af0;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #005af0;
+    padding: 10px 20px;
+    border: none;
+    outline: 1px solid #010101;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.form input {
+    margin: 10px 0;
+    width: 100%;
+    background-color: #e2e2e2;
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+}
+
+.header {
+    display: block;
+    margin: 20px 40px;
+    .close-modal {
+        float: right;
+        cursor: pointer;
+    }
+}
+
+.confirm-btn {
+    background-color: blue;
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.confirm-btn:disabled {
+    background-color: blue;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.cancel-btn {
+    background-color: #fff;
+    color: #404040;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px;
+    border-style: solid;
+    border-color: #404040;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.selectedFiles {
+    display: inline;
+    width: 100%;
+    align-items: center;
+    padding: 3px;
+    max-height: 100%;
+    overflow-y: auto;
+    #uploaded-video-list {
+        padding: 10px;
+        width: 100%;
+        #uploaded-video-item {
+            align-content: space-around;
+            width: 100%;
+            margin-bottom: 10px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            cursor: pointer;
+            .close {
+                position: relative;
+                transform: scale(0.5);
+                background-color: #fff;
+            }
+            .report-problem {
+                position: relative;
+                transform: scale(0.5);
+                color: red;
+                background-color: #fff;
+            }
+            // &:hover {
+            //     background-color: #cbc3c3;
+            //     transition: 0.6s;
+            // }
+            &.videoSelected {
+                background-color: #cbc3c3;
+            }
+            .list-spacer {
+                flex: 1 1 auto;
+            }
+            #uploaded-video-title {
+                color: #A89F6A;
+                font-family: 'Fira Sans';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 14px;
+            }
+        }
+    }
+}
+
+.files-list {
+    width: 100%;
+    margin: auto;
+    .files {
+        width: 75%;
+        float: left;
+        margin: auto;
+    }
+    .file-actions {
+        width: 15%;
+        float: left;
+        margin: auto;
+    }
+}

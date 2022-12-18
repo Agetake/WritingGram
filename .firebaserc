@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "writing-gram"
+  },
+  "targets": {
+    "writing-gram": {
+      "hosting": {
+        "WritingGram": [
+          "writing-gram"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<section id="top-section">
+    <div class="input-box">
+        <input placeholder="Search..." />
+        <div>
+            <i class="fas fa-search"></i>
+        </div>
+    </div>
+    <div class="action-icons">
+        <div class="action-icon-one"></div>
+        <div class="action-icon-two"></div>
+    </div>
+</section>
+<h1 id="welcome-title" *ngIf="user">Welcome Back, {{user.name}}!</h1>
+<section id="grid-container">
+    <div class="grid-item one">Item 1 <button (click)="loadData()"> load data</button> </div>
+    <div class="grid-item two">Item 2</div>
+    <div class="grid-item three">Item 3</div>
+    <div class="grid-item four">Item 4</div>
+</section>

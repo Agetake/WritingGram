@@ -1,0 +1,108 @@
+<div class="main">
+    <div class="container" *ngIf="!registrationComplete && user">
+        <h2>Complete Writer Registration</h2>
+        <form [formGroup]="registrationForm" (ngSubmit)="completeRegistration()">
+            <div class="row">
+                <div class="col-25">
+                    <label for="level">Education Level</label>
+                </div>
+                <div class="col-75">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Education Level</mat-label>
+                        <mat-select formControlName="educationLevel">
+                            <mat-option selected disabled>Select Education Level</mat-option>
+                            <mat-option value="Undergraduate">Undergraduate</mat-option>
+                            <mat-option value="Masters">Masters</mat-option>
+                            <mat-option value="Doctorate">Doctorate</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <br>
+                    <div *ngIf="registrationForm.get('educationLevel')!.invalid && registrationForm.get('educationLevel')!.errors && (registrationForm.get('educationLevel')!.dirty || registrationForm.get('educationLevel')!.touched)">
+                        <small class="text-danger" *ngIf="registrationForm.get('educationLevel')!.hasError('required')">
+                    This field is required.
+                  </small>
+                    </div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Institution</mat-label>
+                        <input matInput placeholder="e.g. Moi University" formControlName="institution">
+                    </mat-form-field>
+                    <br>
+                    <div *ngIf="registrationForm.get('institution')!.invalid && registrationForm.get('institution')!.errors && (registrationForm.get('institution')!.dirty || registrationForm.get('institution')!.touched)">
+                        <small class="text-danger" *ngIf="registrationForm.get('institution')!.hasError('required')">
+                    This field is required.
+                  </small>
+                    </div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Year of Completion</mat-label>
+                        <mat-select formControlName="year">
+                            <mat-option *ngFor="let year of yearsArr" [value]="year">{{year}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <br>
+                    <div *ngIf="registrationForm.get('year')!.invalid && registrationForm.get('year')!.errors && (registrationForm.get('year')!.dirty || registrationForm.get('year')!.touched)">
+                        <small class="text-danger" *ngIf="registrationForm.get('year')!.hasError('required')">
+                This field is required.
+              </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="discipline">Preferred Disciplines</label>
+                </div>
+                <div class="col-75">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Discipline</mat-label>
+                        <mat-select formControlName="discipline" multiple>
+                            <mat-option *ngFor="let discipline of disciplines" [value]="discipline.code">{{discipline.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <br>
+                    <div *ngIf="registrationForm.get('discipline')!.invalid && registrationForm.get('discipline')!.errors && (registrationForm.get('discipline')!.dirty || registrationForm.get('discipline')!.touched)">
+                        <small class="text-danger" *ngIf="registrationForm.get('discipline')!.hasError('required')">
+                  This field is required.
+                </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="format"> Preferred Writing Styles</label>
+                </div>
+                <div class="col-75">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Writing Styles</mat-label>
+                        <mat-select formControlName="format" multiple>
+                            <mat-option *ngFor="let format of paperFormats" [value]="format">{{format}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <br>
+                    <div *ngIf="registrationForm.get('format')!.invalid && registrationForm.get('format')!.errors && (registrationForm.get('format')!.dirty || registrationForm.get('format')!.touched)">
+                        <small class="text-danger" *ngIf="registrationForm.get('format')!.hasError('required')">
+                      This field is required.
+                    </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="materials">Sample Essay</label>
+                </div>
+                <div class="col-75">
+                    <app-file-upload-widget [filePath]="filePath" [fileType]="'sample-essay'" [uploadButtonName]="'Upload Sample Essay'" (fileDetails)='uploadedFileDetails($event)'></app-file-upload-widget>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" [disabled]="!registrationForm.valid || !samplePaperUploaded" value="Continue">
+            </div>
+        </form>
+    </div>
+    <div *ngIf="registrationComplete && user" class="container">
+        <p style="margin: auto; background-color: #fff; padding: 20px;">
+            You have completed the registration process. Kindly wait for your application to be reviewed. A response will be sent to your email {{user.email}}.
+        </p>
+    </div>
+</div>

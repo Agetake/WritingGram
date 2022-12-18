@@ -1,0 +1,15 @@
+@import url('https://www.w3schools.com/w3css/4/w3.css');
+.profile-container {
+    height: 80vh;
+    overflow-y: scroll;
+    margin: 20px;
+}
+
+.header {
+    display: block;
+    margin: 20px 10px;
+    .close-modal {
+        float: right;
+        cursor: pointer;
+    }
+}
